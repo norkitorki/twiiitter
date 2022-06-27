@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <% flash.each do |type, msg| %>
+      <div class="notification is-<%= type == 'notice' ? 'primary' : 'danger' %> global-notification">
+        <p class="<%= type %>"><%= msg %></p>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
