@@ -1,3 +1,4 @@
+<!--
 <%= form_with(model: tweeet) do |form| %>
   <% if tweeet.errors.any? %>
     <div style="color: red">
@@ -20,3 +21,24 @@
     <%= form.submit %>
   </div>
 <% end %>
+-->
+
+<%= simple_form_for(@tweeet) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="field">
+    <div class="control">
+      <%= f.input :tweeet, 
+        label: 'Tweeet about it', 
+        input_html: { class: 'textarea' }, 
+        wrapper: false, 
+        label_html: { class: 'label' }, 
+        placeholder: 'Compose a new tweet' 
+      %>
+    </div>
+  </div>
+  
+  <%= f.button :submit, class: 'button-is-info' %>
+
+<% end %>
+
