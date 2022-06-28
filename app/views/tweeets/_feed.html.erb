@@ -1,39 +1,45 @@
 <div class="column is-half">
-  <article class="media box">
-    <figure class="media-left">
-      <p class="image is-64x64">
-        <img src="https://bulma.io/images/placeholders/64x64.png">
-      </p>
-    </figure>
+  <% if user_signed_in? %>
+    <article class="media box">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="https://source.unsplash.com/random/64x64">
+        </p>
+      </figure>
 
-    <div class="media-content">
-      <%= render 'form', tweeet: @tweeet %>
-    </div>
-  </article>
+      <div class="media-content">
+        <%= render 'form', tweeet: @tweeet %>
+      </div>
+    </article>
+  <% end %>
 
 
   <% tweeets.each do |tweeet| %>
     <div class="box">
+      
       <article class="media">
         <div class="media-left">
           <figure class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/64x64.png">
+            <img src="https://source.unsplash.com/random/64x64">
           </figure>
         </div>
 
         <div class="media-content">
           <div class="content">
-            <strong>John Doe</strong><br>
+            <strong><%= tweeet.user.name %></strong><br>
+            <small>@<%= tweeet.user.username %></small>
             <p><%= tweeet.tweeet %>
           </div>
 
-          <nav class="level">
-            <div class="level-left is-mobile">
-              <%= link_to 'Visit', tweeet, class: 'level-item' %>
-              <%= link_to 'Edit', edit_tweeet_path(tweeet), class: 'level-item' %>
-              <%= link_to 'Delete', tweeet, data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to delete this tweeet?' }, class: 'level-item' %>
-            </div>
-          </nav>
+          <% if user_signed_in? && current_user == tweeet.user %>
+            <nav class="level">
+              <div class="level-left is-mobile">
+                <%= link_to 'Visit', tweeet, class: 'level-item' %>
+                <%= link_to 'Edit', edit_tweeet_path(tweeet), class: 'level-item' %>
+                <%= link_to 'Delete', tweeet, data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to delete this tweeet?' }, class: 'level-item' %>
+              </div>
+            </nav>
+          <% end %>
         </div>
       </article>
     </div>
